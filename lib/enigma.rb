@@ -19,7 +19,7 @@ class Enigma
   def encrypt(message, key = keygen, date = dategen)
     final_offsets = generate_final_offsets(key, date)
     output = []
-      message.split("").each do |character|
+      message.downcase.split("").each do |character|
       if character_set.include?(character)
         ch_index = character_set.index(character)
         output << character_set.rotate(final_offsets[0])[ch_index]
@@ -38,7 +38,7 @@ class Enigma
   def decrypt(message, key = keygen, date = dategen)
     final_offsets = generate_final_offsets(key, date)
     output = []
-      message.split("").each do |character|
+      message.downcase.split("").each do |character|
       if character_set.include?(character)
         ch_index = character_set.index(character)
         output << character_set.rotate(-(final_offsets[0]))[ch_index]
@@ -53,10 +53,4 @@ class Enigma
       date: date
     }
   end
-
-  
-
-
-
-  
 end
