@@ -55,6 +55,23 @@ RSpec.describe Enigma do
     end
   end
 
+  context 'final offset creation' do
+    it '#final_a_offset' do
+      expect(enigma.a_final('02715', '040895')).to eq(3)
+    end
+
+    it '#final_b_offset' do
+      expect(enigma.b_final('02715', '040895')).to eq(27)
+    end
+
+    it '#final_c_offset' do
+      expect(enigma.c_final('02715', '040895')).to eq(73)
+    end
+
+    it '#final_d_offset' do
+      expect(enigma.d_final('02715', '040895')).to eq(20)
+    end
+  end
 
   xit '#decrypt' do
     expected = {
