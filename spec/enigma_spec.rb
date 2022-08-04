@@ -39,19 +39,19 @@ RSpec.describe Enigma do
 
   context 'offset creation' do
     it '#a_offset' do
-
+      expect(enigma.a_offset("040895")).to eq("1")
     end
 
     it '#b_offset' do
-      
+      expect(enigma.b_offset("040895")).to eq("0")
     end
 
     it '#c_offset' do
-      
+      expect(enigma.c_offset("040895")).to eq("2")
     end
 
     it '#d_offset' do
-      
+      expect(enigma.d_offset("040895")).to eq("5")
     end
   end
 
