@@ -5,16 +5,9 @@ require 'date'
 class Enigma
   include Cryptable
 
-  # def initialize(message = "", key = "", date = "")
-  #   @message = ""
-  #   @key = ""
-  #   @date = ""
-  #   # @final_offsets = []
-  # end
-  
-  # def self.generate
-  #   Enigma.new(@message, keygen, dategen)
-  # end
+  def initialize
+
+  end
 
   def encrypt(message, key = keygen, date = dategen)
     final_offsets = generate_final_offsets(key, date)
@@ -28,11 +21,7 @@ class Enigma
         output << character
       end
     end
-    {
-      encryption: output.join(""),
-      key: key,
-      date: date
-    }
+    encrypt_out(output, key, date)
   end
 
   def decrypt(message, key = keygen, date = dategen)
@@ -47,10 +36,6 @@ class Enigma
         output << character
       end
     end
-    {
-      decryption: output.join(""),
-      key: key,
-      date: date
-    }
+    decrypt_out(output, key, date)
   end
 end

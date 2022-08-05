@@ -72,4 +72,20 @@ module Cryptable
        d_final(key, date),
     ]
   end
+  
+  def encrypt_out(output, key, date)
+    {
+      encryption: output.join(""),
+      key: key,
+      date: date
+    }
+  end
+
+  def decrypt_out(output, key, date)
+    {
+      decryption: output.join(""),
+      key: key,
+      date: date
+    }
+  end
 end
