@@ -12,64 +12,69 @@ module Cryptable
     @date = Date.today.strftime("%d%m%Y")
   end
 
-  def a_key(key)
-    key[0..1]
+  def key_hash(key)
+    { 
+      a: key[0..1],
+      b: key[1..2],
+      c: key[2..3],
+      d: key[3..4]
+    }
   end
 
-  def b_key(key)
-    key[1..2]
-  end
-
-  def c_key(key)
-    key[2..3]
-  end
-
-  def d_key(key)
-    key[3..4]
-  end
-
-  def a_offset(date)
-    date_squared = date.to_i ** 2
-    date_squared.to_s[-4]
-  end
-
-  def b_offset(date)
-    date_squared = date.to_i ** 2
-    date_squared.to_s[-3]
-  end
-
-  def c_offset(date)
-    date_squared = date.to_i ** 2
-    date_squared.to_s[-2]
-  end
-
-  def d_offset(date)
-    date_squared = date.to_i ** 2
-    date_squared.to_s[-1]
-  end
-
-  def a_final(key, date)
-    a_key(key).to_i + a_offset(date).to_i
-  end
-
-  def b_final(key, date)
-    b_key(key).to_i + b_offset(date).to_i
-  end
-
-  def c_final(key, date)
-    c_key(key).to_i + c_offset(date).to_i
-  end
-
-  def d_final(key, date)
-    d_key(key).to_i + d_offset(date).to_i
+  def offset_hash(date)
+    sq_date = date.to_i ** 2
+    {
+      a: sq_date.to_s[-4],
+      b: sq_date.to_s[-3],
+      c: sq_date.to_s[-2],
+      d: sq_date.to_s[-1]
+    }
   end
 
   def generate_final_offsets(key, date)
+    keys = key_hash(key)
+    offsets = offset_hash(date)
     [
-       a_final(key, date),  
-       b_final(key, date),
-       c_final(key, date),    
-       d_final(key, date),
+      keys[:a].to_i + offsets[:a].to_i,
+      keys[:b].to_i + offsets[:b].to_i,
+      keys[:c].to_i + offsets[:c].to_i,
+      keys[:d].to_i + offsets[:d].to_i
     ]
+  end
+  
+  def build_encrypt_array(character, output, final_offsets)
+    if character_set.include?(character)
+      ch_index = character_set.index(character)
+      output << character_set.rotate(final_offsets[0])[ch_index]
+      final_offsets.rotate!(1)
+    else
+      output << character
+    end
+  end
+  
+  def build_decrypt_array(character, output, final_offsets)
+    if character_set.include?(character)
+      ch_index = character_set.index(character)
+      output << character_set.rotate(-(final_offsets[0]))[ch_index]
+      final_offsets.rotate!(1)
+    else
+      output << character
+    end
+  end
+
+  def encrypt_out(output, key, date)
+    {
+      encryption: output.join(""),
+      key: key,
+      date: date
+    }
+  end
+  
+  def decrypt_out(output, key, date)
+    {
+      decryption: output.join(""),
+      key: key,
+      date: date
+    }
   end
 end
