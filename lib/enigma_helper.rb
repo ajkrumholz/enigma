@@ -88,4 +88,24 @@ module Cryptable
       date: date
     }
   end
+
+  def build_encrypt_array(character, output, final_offsets)
+    if character_set.include?(character)
+      ch_index = character_set.index(character)
+      output << character_set.rotate(final_offsets[0])[ch_index]
+      final_offsets.rotate!(1)
+    else
+      output << character
+    end
+  end
+  
+  def build_decrypt_array(character, output, final_offsets)
+    if character_set.include?(character)
+      ch_index = character_set.index(character)
+      output << character_set.rotate(-(final_offsets[0]))[ch_index]
+      final_offsets.rotate!(1)
+    else
+      output << character
+    end
+  end
 end
