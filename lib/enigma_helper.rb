@@ -9,7 +9,7 @@ module Cryptable
   end
 
   def dategen
-    @date = Date.today.strftime("%d%m%Y")
+    Date.today.strftime("%d%m%Y")
   end
 
   def key_hash(key)
