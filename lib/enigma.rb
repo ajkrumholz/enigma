@@ -37,12 +37,6 @@ class Enigma
     cipher = " end".split('')
     #finds the offset values by the last 4 digits of (date ^ 2)
     offsets = offset_hash(date).values
-    # offsets_hash = {
-    #   a: offsets[0],
-    #   b: offsets[1],
-    #   c: offsets[2],
-    #   d: offsets[3]
-    # }
     # creates an array of the last 4 characters in message
     ending = message[-4..-1].split("")
     # rotates the offsets so they line up properly with the last 4 digits, i.e. for messages of different lengths we won't always be working on offset a for the first character of the cipher
@@ -85,6 +79,7 @@ class Enigma
     final_keys = [possible_a_keys, possible_b_keys, possible_c_keys, possible_d_keys]
     #initializes an array that will hold keys than match the specified pattern
     key_array = []
+
     #iterates through all possible keys and checks if they match the patter specified on line 93
     possible_a_keys.each do |akey|
       possible_b_keys.each do |bkey|
