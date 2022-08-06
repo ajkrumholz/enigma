@@ -127,7 +127,7 @@ RSpec.describe Enigma do
         key: current_encrypt[:key]
       }
 
-      expect(enigma.crack(current_encrypt[:encryption], enigma.dategen)).to eq(expected)
+      expect(enigma.crack(current_encrypt[:encryption])).to eq(expected)
     end
 
     it "#crack with today's date and a different message" do
@@ -138,8 +138,8 @@ RSpec.describe Enigma do
         date: enigma.dategen,
         key: current_encrypt[:key]
       }
-
-      expect(enigma.crack(current_encrypt[:encryption], enigma.dategen)).to eq(expected)
+# both this and the above method have a chance of failing - what gives?
+      expect(enigma.crack(current_encrypt[:encryption])).to eq(expected)
     end
   end
 end
