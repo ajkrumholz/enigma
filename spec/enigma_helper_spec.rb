@@ -13,7 +13,7 @@ RSpec.describe Cryptable do
     end
 
     it '#dategen' do
-      expect(enigma.dategen).to eq(Date.today.strftime("%d%m%Y"))  
+      expect(enigma.dategen).to eq(Date.today.strftime("%d%m%y"))  
     end
 
     it '#key_hash' do

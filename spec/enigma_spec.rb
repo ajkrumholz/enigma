@@ -88,22 +88,58 @@ RSpec.describe Enigma do
 
     it '#crack with provided date' do
       expected = {
-            decryption: "hello world end",
-            date: "291018",
-            key: "08304"
-          }
+        decryption: "hello world end",
+        date: "291018",
+        key: "08304"
+      }
 
       expect(enigma.crack("vjqtbeaweqihssi", "291018")).to eq(expected)
     end
 
-    xit "#crack with today's date" do
+    it '#crack with a different provided date' do
       expected = {
         decryption: "hello world end",
-        date: "05082022",
-        key: ""
+        date: "020385",
+        key: "33030"
       }
 
-      expect(enigma.crack("vjqtbeaweqihssi")).to eq(expected)
+      expect(enigma.crack("vjqtbeaweqihssi", "020385")).to eq(expected)
+    end
+
+    it '#crack with a different message' do
+      enigma.encrypt("oh hello world end", "62774", "291018")
+
+      expected = {
+        decryption: "oh hello world end",
+        date: "291018",
+        key: "62774"
+      }
+
+      expect(enigma.crack("bkyesojlnzmozgybag", "291018")).to eq(expected)
+    end
+
+    it "#crack with today's date" do
+      current_encrypt = enigma.encrypt("hello world end")
+
+      expected = {
+        decryption: "hello world end",
+        date: enigma.dategen,
+        key: current_encrypt[:key]
+      }
+
+      expect(enigma.crack(current_encrypt[:encryption], enigma.dategen)).to eq(expected)
+    end
+
+    it "#crack with today's date and a different message" do
+      current_encrypt = enigma.encrypt("hola world end")
+
+      expected = {
+        decryption: "hola world end",
+        date: enigma.dategen,
+        key: current_encrypt[:key]
+      }
+
+      expect(enigma.crack(current_encrypt[:encryption], enigma.dategen)).to eq(expected)
     end
   end
 end
