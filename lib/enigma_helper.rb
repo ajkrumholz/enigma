@@ -109,14 +109,14 @@ module Cryptable
       cipher_index = character_set.index(cipher[0])
       new_set = character_set.rotate(-(27 - cipher_index))
       total_shift = new_set.index(character)
-      final_possible_keys = generate_final_possible_keys(total_shift, rotated_offsets)
+      final_possible_keys = generate_possible_keys(total_shift, rotated_offsets)
       rotated_offsets.rotate!(1)
       cipher.rotate!(1)
       final_possible_keys
     end
   end
 
-  def generate_final_possible_keys(total_shift, rotated_offsets)
+  def generate_possible_keys(total_shift, rotated_offsets)
     [
       total_shift - rotated_offsets[0].to_i,
       total_shift + 27 - rotated_offsets[0].to_i,
