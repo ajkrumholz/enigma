@@ -2,18 +2,17 @@ require_relative 'spec_helper'
 
 RSpec.describe Cryptable do
   let(:enigma) { Enigma.new }
-  let(:message) { "hello world" }
-  let(:key) { "02715" }
-  let(:date) { "040895" }
+  let(:message) { 'hello world' }
+  let(:key) { '02715' }
+  let(:date) { '040895' }
 
-  context 'key creation' do 
-
+  context 'key creation' do
     it '#keygen' do
       expect(enigma.keygen).to be_a(String)
     end
 
     it '#dategen' do
-      expect(enigma.dategen).to eq(Date.today.strftime("%d%m%y"))  
+      expect(enigma.dategen).to eq(Date.today.strftime('%d%m%y'))
     end
 
     it '#key_hash' do
@@ -26,10 +25,10 @@ RSpec.describe Cryptable do
 
   context 'offset creation' do
     it '#offset_hash' do
-      expect(enigma.offset_hash(date)[:a]).to eq("1")
-      expect(enigma.offset_hash(date)[:b]).to eq("0")
-      expect(enigma.offset_hash(date)[:c]).to eq("2")
-      expect(enigma.offset_hash(date)[:d]).to eq("5")
+      expect(enigma.offset_hash(date)[:a]).to eq('1')
+      expect(enigma.offset_hash(date)[:b]).to eq('0')
+      expect(enigma.offset_hash(date)[:c]).to eq('2')
+      expect(enigma.offset_hash(date)[:d]).to eq('5')
     end
   end
 
