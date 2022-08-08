@@ -11,34 +11,38 @@ module Cryptable
     Date.today.strftime('%d%m%y')
   end
 
-  def key_hash(key)
-    {
-      a: key[0..1],
-      b: key[1..2],
-      c: key[2..3],
-      d: key[3..4]
-    }
+  def key_array(key)
+    [
+      key[0..1].to_i,
+      key[1..2].to_i,
+      key[2..3].to_i,
+      key[3..4].to_i
+    ]
   end
 
-  def offset_hash(date)
+  def offset_array(date)
     sq_date = date.to_i**2
-    {
-      a: sq_date.to_s[-4],
-      b: sq_date.to_s[-3],
-      c: sq_date.to_s[-2],
-      d: sq_date.to_s[-1]
-    }
+    [
+      sq_date.to_s[-4].to_i,
+      sq_date.to_s[-3].to_i,
+      sq_date.to_s[-2].to_i,
+      sq_date.to_s[-1].to_i
+    ]
   end
 
   def generate_final_offsets(key, date)
-    keys = key_hash(key)
-    offsets = offset_hash(date)
-    [
-      keys[:a].to_i + offsets[:a].to_i,
-      keys[:b].to_i + offsets[:b].to_i,
-      keys[:c].to_i + offsets[:c].to_i,
-      keys[:d].to_i + offsets[:d].to_i
-    ]
+    keys = key_array(key)
+    offsets = offset_array(date)
+    keys.zip(offsets).map(&:sum)
+  
+    # keys = key_hash(key
+    # offsets = offset_hash(date)
+    # [
+    #   keys[:a].to_i + offsets[:a].to_i,
+    #   keys[:b].to_i + offsets[:b].to_i,
+    #   keys[:c].to_i + offsets[:c].to_i,
+    #   keys[:d].to_i + offsets[:d].to_i
+    # ]
   end
 
   def build_encrypt_array(character, _output, final_offsets)
@@ -89,7 +93,7 @@ module Cryptable
 
   def decipher_key(message, date)
     cipher = ' end'.split('')
-    offsets = offset_hash(date).values
+    offsets = offset_array(date)
     ending = message[-4..].split('')
     rotated_offsets = offsets.rotate(message.length - 4)
     final_possibilities = generate_final_possibilities(ending, cipher, rotated_offsets)
