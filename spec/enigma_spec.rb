@@ -135,7 +135,7 @@ RSpec.describe Enigma do
         date: enigma.dategen,
         key: current_encrypt[:key]
       }
-      # both this and the above method have a chance of failing - what gives?
+      
       expect(enigma.crack(current_encrypt[:encryption])[:decryption]).to eq(expected[:decryption])
     end
   end

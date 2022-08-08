@@ -90,7 +90,7 @@ module Cryptable
   def decipher_key(message, date)
     cipher = ' end'.split('')
     offsets = offset_hash(date).values
-    ending = message[-4..-1].split('')
+    ending = message[-4..].split('')
     rotated_offsets = offsets.rotate(message.length - 4)
     final_possibilities = generate_final_possibilities(ending, cipher, rotated_offsets)
     sanitize(final_possibilities, rotated_offsets, offsets)
@@ -106,7 +106,6 @@ module Cryptable
 
   def generate_final_possibilities(ending, cipher, rotated_offsets)
     ending.map do |character|
-      ch_index = character_set.index(character)
       cipher_index = character_set.index(cipher[0])
       new_set = character_set.rotate(-(27 - cipher_index))
       total_shift = new_set.index(character)

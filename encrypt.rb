@@ -5,6 +5,7 @@ enigma = Enigma.new
 read_file = File.open(ARGV[0], 'r')
 
 message = read_file.read { |f| }
+read_file.close
 
 encryption_hash = enigma.encrypt(message)
 encryption = encryption_hash[:encryption]
@@ -13,5 +14,6 @@ date = encryption_hash[:date]
 
 write_file = File.open(ARGV[1], 'w')
 write_file.write(encryption)
+write_file.close
 
 puts "created #{ARGV[1]} with the key #{key} and date #{date}"
