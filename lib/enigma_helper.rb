@@ -22,12 +22,9 @@ module Cryptable
 
   def offset_array(date)
     sq_date = date.to_i**2
-    [
-      sq_date.to_s[-4].to_i,
-      sq_date.to_s[-3].to_i,
-      sq_date.to_s[-2].to_i,
-      sq_date.to_s[-1].to_i
-    ]
+    sq_date.to_s[-4..].split("").map do |digit|
+      digit.to_i
+    end
   end
 
   def generate_final_offsets(key, date)
