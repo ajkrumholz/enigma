@@ -22,24 +22,14 @@ module Cryptable
 
   def offset_array(date)
     sq_date = date.to_i**2
-    sq_date.to_s[-4..].split("").map do |digit|
-      digit.to_i
-    end
+    sq_date_ary = sq_date.to_s[-4..].split("")
+    sq_date_ary.map { |num| num.to_i }
   end
 
   def generate_final_offsets(key, date)
     keys = key_array(key)
     offsets = offset_array(date)
     keys.zip(offsets).map(&:sum)
-  
-    # keys = key_hash(key
-    # offsets = offset_hash(date)
-    # [
-    #   keys[:a].to_i + offsets[:a].to_i,
-    #   keys[:b].to_i + offsets[:b].to_i,
-    #   keys[:c].to_i + offsets[:c].to_i,
-    #   keys[:d].to_i + offsets[:d].to_i
-    # ]
   end
 
   def build_encrypt_array(character, _output, final_offsets)
