@@ -108,13 +108,11 @@ module Cryptable
   end
 
   def generate_possible_keys(total_shift, rotated_offsets)
-    [
-      total_shift - rotated_offsets[0].to_i,
-      total_shift + 27 - rotated_offsets[0].to_i,
-      total_shift + 54 - rotated_offsets[0].to_i,
-      total_shift + 81 - rotated_offsets[0].to_i,
-      total_shift + 108 - rotated_offsets[0].to_i
-    ]
+    array = []
+    5.times do |i|
+      array << total_shift - rotated_offsets[0] + (27 * i)
+    end
+    array
   end
 
   def generate_final_keys(final_possibilities)
