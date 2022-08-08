@@ -127,11 +127,7 @@ module Cryptable
   end
 
   def generate_final_keys(final_possibilities)
-    a_keys = final_possibilities[0].map { |int| '%02d' % int }
-    b_keys = final_possibilities[1].map { |int| '%02d' % int }
-    c_keys = final_possibilities[2].map { |int| '%02d' % int }
-    d_keys = final_possibilities[3].map { |int| '%02d' % int }
-    [a_keys, b_keys, c_keys, d_keys]
+    final_possibilities.map { |ary| ary.map { |int| '%02d' % int } }
   end
 
   def generate_key_array(final_keys)
