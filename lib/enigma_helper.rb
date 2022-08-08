@@ -1,7 +1,6 @@
 module Cryptable
-
   def character_set
-    ("a".."z").to_a << " "
+    ('a'..'z').to_a << ' '
   end
 
   def keygen
@@ -9,11 +8,11 @@ module Cryptable
   end
 
   def dategen
-    Date.today.strftime("%d%m%y")
+    Date.today.strftime('%d%m%y')
   end
 
   def key_hash(key)
-    { 
+    {
       a: key[0..1],
       b: key[1..2],
       c: key[2..3],
@@ -22,7 +21,7 @@ module Cryptable
   end
 
   def offset_hash(date)
-    sq_date = date.to_i ** 2
+    sq_date = date.to_i**2
     {
       a: sq_date.to_s[-4],
       b: sq_date.to_s[-3],
@@ -41,8 +40,8 @@ module Cryptable
       keys[:d].to_i + offsets[:d].to_i
     ]
   end
-  
-  def build_encrypt_array(character, output, final_offsets)
+
+  def build_encrypt_array(character, _output, final_offsets)
     if character_set.include?(character)
       ch_index = character_set.index(character)
       new_character = encrypt_character(final_offsets, ch_index)
@@ -56,8 +55,8 @@ module Cryptable
   def encrypt_character(final_offsets, ch_index)
     character_set.rotate(final_offsets[0])[ch_index]
   end
-  
-  def build_decrypt_array(character, output, final_offsets)
+
+  def build_decrypt_array(character, _output, final_offsets)
     if character_set.include?(character)
       ch_index = character_set.index(character)
       new_character = decrypt_character(final_offsets, ch_index)
@@ -74,24 +73,24 @@ module Cryptable
 
   def encrypt_out(output, key, date)
     {
-      encryption: output.join(""),
+      encryption: output.join(''),
       key: key,
       date: date
     }
   end
-  
+
   def decrypt_out(output, key, date)
     {
-      decryption: output.join(""),
+      decryption: output.join(''),
       key: key,
       date: date
     }
   end
 
   def decipher_key(message, date)
-    cipher = " end".split('')
+    cipher = ' end'.split('')
     offsets = offset_hash(date).values
-    ending = message[-4..-1].split("")
+    ending = message[-4..-1].split('')
     rotated_offsets = offsets.rotate(message.length - 4)
     final_possibilities = generate_final_possibilities(ending, cipher, rotated_offsets)
     sanitize(final_possibilities, rotated_offsets, offsets)
@@ -109,7 +108,7 @@ module Cryptable
     ending.map do |character|
       ch_index = character_set.index(character)
       cipher_index = character_set.index(cipher[0])
-      new_set = character_set.rotate(-(27-cipher_index))
+      new_set = character_set.rotate(-(27 - cipher_index))
       total_shift = new_set.index(character)
       final_possible_keys = generate_final_possible_keys(total_shift, rotated_offsets)
       rotated_offsets.rotate!(1)
@@ -129,10 +128,10 @@ module Cryptable
   end
 
   def generate_final_keys(final_possibilities)
-    a_keys = final_possibilities[0].map { |int| "%02d" % int }
-    b_keys = final_possibilities[1].map { |int| "%02d" % int }
-    c_keys = final_possibilities[2].map { |int| "%02d" % int }
-    d_keys = final_possibilities[3].map { |int| "%02d" % int }
+    a_keys = final_possibilities[0].map { |int| '%02d' % int }
+    b_keys = final_possibilities[1].map { |int| '%02d' % int }
+    c_keys = final_possibilities[2].map { |int| '%02d' % int }
+    d_keys = final_possibilities[3].map { |int| '%02d' % int }
     [a_keys, b_keys, c_keys, d_keys]
   end
 
@@ -142,9 +141,7 @@ module Cryptable
       final_keys[1].each do |bkey|
         final_keys[2].each do |ckey|
           final_keys[3].each do |dkey|
-            if akey[1] == bkey[0] && bkey[1] == ckey[0] && ckey[1] == dkey[0]
-              key_array.push(akey, bkey, ckey, dkey)
-            end
+            key_array.push(akey, bkey, ckey, dkey) if akey[1] == bkey[0] && bkey[1] == ckey[0] && ckey[1] == dkey[0]
           end
         end
       end
