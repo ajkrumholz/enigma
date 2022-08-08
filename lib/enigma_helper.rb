@@ -141,10 +141,7 @@ module Cryptable
         final_keys[2].each do |ckey|
           final_keys[3].each do |dkey|
             key_array.push(akey, bkey, ckey, dkey) if akey[1] == bkey[0] && bkey[1] == ckey[0] && ckey[1] == dkey[0]
-          end
-        end
-      end
-    end
+    end; end; end; end
     key_array
   end
 
