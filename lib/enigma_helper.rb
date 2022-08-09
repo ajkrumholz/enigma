@@ -1,10 +1,6 @@
 # Cryptable contains basic methods used by both Encryptor and Decryptor
 
 module Cryptable
-  def keygen
-    (Array.new(5) { rand(0..9) }).join
-  end
-
   def key_array(key)
     [
       key[0..1].to_i,

@@ -3,22 +3,11 @@
 require_relative 'spec_helper'
 
 RSpec.describe CodeCracker do
-  let(:enigma) { Enigma.new }
-  let(:encryptor) { Encryptor.new }
   let(:codecracker) { described_class.new }
 
   context 'setup' do
     it 'exists' do
       expect(codecracker).to be_a(described_class)
-    end
-
-    it '#encrypt testing' do
-      expected = {
-        encryption: 'vjqtbeaweqihssi',
-        date: '291018',
-        key: '08304'
-      }
-      expect(encryptor.encrypt('hello world end', '08304', '291018')).to eq(expected)
     end
   end
 
@@ -46,8 +35,6 @@ RSpec.describe CodeCracker do
 
   context 'longer message test' do
     it '#crack with a different message' do
-      encryptor.encrypt('oh hello world end', '62774', '291018')
-
       expected = {
         decryption: 'oh hello world end',
         date: '291018',
@@ -59,12 +46,21 @@ RSpec.describe CodeCracker do
   end
 
   context "today's date testing" do
+    let(:encryptor) {double}
+
     it "#crack with today's date" do
+      expected_encrypt = {
+        :encryption=>"rekqy vtalceonc", 
+        :key=>"32182", 
+        :date=>Date.today.strftime('%d%m%y')
+      }
+      allow(encryptor).to receive(:encrypt).and_return(expected_encrypt)
+
       current_encrypt = encryptor.encrypt('hello world end')
 
       expected = {
         decryption: 'hello world end',
-        date: Date.today.strftime('%d%m%y'),
+        date: current_encrypt[:date],
         key: current_encrypt[:key]
       }
 
@@ -72,6 +68,13 @@ RSpec.describe CodeCracker do
     end
 
     it "#crack with today's date and a different message" do
+      expected_encrypt = {
+        :encryption=>"o aighdzsppmup", 
+        :key=>"56085", 
+        :date=>"090822"
+      }
+      allow(encryptor).to receive(:encrypt).and_return(expected_encrypt)
+
       current_encrypt = encryptor.encrypt('hola world end')
 
       expected = {
@@ -85,12 +88,22 @@ RSpec.describe CodeCracker do
   end
 
   context 'special characters' do
+    let(:encryptor) { double }
+
     it "#crack with today's date and a special characters" do
+      expected_encrypt = {
+        :encryption=>"m0j@vytpgfxy!!!***vgsb", 
+        :key=>"81952", 
+        :date=>"090822"
+      }
+      
+      allow(encryptor).to receive(:encrypt).and_return(expected_encrypt)
+      
       current_encrypt = encryptor.encrypt('h0l@ worlds !!!*** end')
 
       expected = {
         decryption: 'h0l@ worlds !!!*** end',
-        date: Date.today.strftime('%d%m%y'),
+        date: current_encrypt[:date],
         key: current_encrypt[:key]
       }
 
