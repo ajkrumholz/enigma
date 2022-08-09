@@ -1,4 +1,5 @@
 require_relative 'enigma_helper'
+require 'date'
 
 class Decryptor
   include Cryptable
