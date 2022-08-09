@@ -1,3 +1,5 @@
+# A CLI runner for Decryptor
+
 require_relative 'lib/decryptor'
 
 decryptor = Decryptor.new

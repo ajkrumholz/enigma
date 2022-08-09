@@ -1,3 +1,6 @@
+# required files for rspec
+# implementation of simplecov
+
 require 'simplecov'
 SimpleCov.start
 require './lib/encryptor'

@@ -1,3 +1,5 @@
+# A CLI runner for Codecracker
+
 require_relative 'lib/code_cracker'
 
 code_cracker = CodeCracker.new

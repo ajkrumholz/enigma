@@ -1,3 +1,5 @@
+# Tests for CodeCracker
+
 require_relative 'spec_helper'
 
 RSpec.describe CodeCracker do
@@ -5,84 +7,94 @@ RSpec.describe CodeCracker do
   let(:encryptor) { Encryptor.new }
   let(:codecracker) { described_class.new }
 
-  it 'exists' do
-    expect(codecracker).to be_a(described_class)
+  context 'setup' do
+    it 'exists' do
+      expect(codecracker).to be_a(described_class)
+    end
+
+    it '#encrypt testing' do
+      expected = {
+        encryption: 'vjqtbeaweqihssi',
+        date: '291018',
+        key: '08304'
+      }
+      expect(encryptor.encrypt('hello world end', '08304', '291018')).to eq(expected)
+    end
   end
 
-  it '#encrypt testing' do
-    expected = {
-      encryption: 'vjqtbeaweqihssi',
-      date: '291018',
-      key: '08304'
-    }
-    expect(encryptor.encrypt('hello world end', '08304', '291018')).to eq(expected)
+  context 'provided date' do
+    it '#crack with provided date' do
+      expected = {
+        decryption: 'hello world end',
+        date: '291018',
+        key: '08304'
+      }
+
+      expect(codecracker.crack('vjqtbeaweqihssi', '291018')).to eq(expected)
+    end
+
+    it '#crack with a different provided date' do
+      expected = {
+        decryption: 'hello world end',
+        date: '020385',
+        key: '33030'
+      }
+
+      expect(codecracker.crack('vjqtbeaweqihssi', '020385')).to eq(expected)
+    end
   end
 
-  it '#crack with provided date' do
-    expected = {
-      decryption: 'hello world end',
-      date: '291018',
-      key: '08304'
-    }
+  context 'longer message test' do
+    it '#crack with a different message' do
+      encryptor.encrypt('oh hello world end', '62774', '291018')
 
-    expect(codecracker.crack('vjqtbeaweqihssi', '291018')).to eq(expected)
+      expected = {
+        decryption: 'oh hello world end',
+        date: '291018',
+        key: '62774'
+      }
+
+      expect(codecracker.crack('bkyesojlnzmozgybag', '291018')).to eq(expected)
+    end
   end
 
-  it '#crack with a different provided date' do
-    expected = {
-      decryption: 'hello world end',
-      date: '020385',
-      key: '33030'
-    }
+  context "today's date testing" do
+    it "#crack with today's date" do
+      current_encrypt = encryptor.encrypt('hello world end')
 
-    expect(codecracker.crack('vjqtbeaweqihssi', '020385')).to eq(expected)
+      expected = {
+        decryption: 'hello world end',
+        date: Date.today.strftime('%d%m%y'),
+        key: current_encrypt[:key]
+      }
+
+      expect(codecracker.crack(current_encrypt[:encryption])[:decryption]).to eq(expected[:decryption])
+    end
+
+    it "#crack with today's date and a different message" do
+      current_encrypt = encryptor.encrypt('hola world end')
+
+      expected = {
+        decryption: 'hola world end',
+        date: Date.today.strftime('%d%m%y'),
+        key: current_encrypt[:key]
+      }
+
+      expect(codecracker.crack(current_encrypt[:encryption])[:decryption]).to eq(expected[:decryption])
+    end
   end
 
-  it '#crack with a different message' do
-    encryptor.encrypt('oh hello world end', '62774', '291018')
+  context 'special characters' do
+    it "#crack with today's date and a special characters" do
+      current_encrypt = encryptor.encrypt('h0l@ worlds !!!*** end')
 
-    expected = {
-      decryption: 'oh hello world end',
-      date: '291018',
-      key: '62774'
-    }
+      expected = {
+        decryption: 'h0l@ worlds !!!*** end',
+        date: Date.today.strftime('%d%m%y'),
+        key: current_encrypt[:key]
+      }
 
-    expect(codecracker.crack('bkyesojlnzmozgybag', '291018')).to eq(expected)
-  end
-
-  it "#crack with today's date" do
-    current_encrypt = encryptor.encrypt('hello world end')
-
-    expected = {
-      decryption: 'hello world end',
-      date: Date.today.strftime("%d%m%y"),
-      key: current_encrypt[:key]
-    }
-
-    expect(codecracker.crack(current_encrypt[:encryption])[:decryption]).to eq(expected[:decryption])
-  end
-
-  it "#crack with today's date and a different message" do
-    current_encrypt = encryptor.encrypt('hola world end')
-
-    expected = {
-      decryption: 'hola world end',
-      date: Date.today.strftime("%d%m%y"),
-      key: current_encrypt[:key]
-    }
-    
-    expect(codecracker.crack(current_encrypt[:encryption])[:decryption]).to eq(expected[:decryption])
-  end
-
-  it "#crack with today's date and a special characters" do
-    current_encrypt = encryptor.encrypt("h0l@ worlds !!!*** end")
-
-    expected = {
-      decryption: "h0l@ worlds !!!*** end",
-      date: Date.today.strftime("%d%m%y"),
-      key: current_encrypt[:key]
-    }
-
-    expect(codecracker.crack(current_encrypt[:encryption])[:decryption]).to eq(expected[:decryption])
+      expect(codecracker.crack(current_encrypt[:encryption])[:decryption]).to eq(expected[:decryption])
+    end
   end
 end
