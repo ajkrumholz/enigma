@@ -22,10 +22,8 @@ class Encryptor
   def encrypt(message, key = keygen, date = @today_date)
     final_offsets = generate_final_offsets(key, date)
     message = message.downcase.split('')
-    output = []
-    message.each do |character|
-      output << build_encrypt_array(character, output, final_offsets)
-      final_offsets.rotate!
+    output = message.map do |character|
+      build_encrypt_array(character, output, final_offsets)
     end
     encrypt_out(output, key, date)
   end
@@ -33,8 +31,11 @@ class Encryptor
   def build_encrypt_array(character, _output, final_offsets)
     if @character_set.include?(character)
       ch_index = @character_set.index(character) 
-      encrypt_character(final_offsets, ch_index)
+      new_character = encrypt_character(final_offsets, ch_index)
+      final_offsets.rotate!
+      new_character
     else
+      final_offsets.rotate!
       character
     end
   end
