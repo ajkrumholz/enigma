@@ -1,5 +1,4 @@
-# Decryptor is a machine built to decrypt messages using a date and key to determine
-# the original encryption pattern
+# Decryptor is a machine built to decrypt messages using a date and key to determine the original encryption pattern
 
 require_relative 'enigma_helper'
 require 'date'

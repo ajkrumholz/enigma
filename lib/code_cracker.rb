@@ -1,5 +1,4 @@
-# CodeCracker is a specialized Decryptor that can crack any code that ends in ' end',
-# given the date the message was Encrypted
+# CodeCracker is a specialized Decryptor that can crack any code that ends in ' end', given the date the message was Encrypted
 
 require_relative 'decryptor'
 
