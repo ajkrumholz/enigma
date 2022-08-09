@@ -24,19 +24,11 @@ class Decryptor
     decrypt_out(output, key, date)
   end
 
-  def decrypt_out(output, key, date)
-    {
-      decryption: output.join(''),
-      key: key,
-      date: date
-    }
-  end
-
   def build_decrypt_array(character, _output, final_offsets)
     if @character_set.include?(character)
       ch_index = @character_set.index(character)
       new_character = decrypt_character(final_offsets, ch_index)
-      final_offsets.rotate!(1)
+      final_offsets.rotate!
       new_character
     else
       character
@@ -44,6 +36,14 @@ class Decryptor
   end
 
   def decrypt_character(final_offsets, ch_index)
-    @character_set.rotate(-(final_offsets[0]))[ch_index]
+    @character_set.rotate(-final_offsets.first)[ch_index]
+  end
+  
+  def decrypt_out(output, key, date)
+    {
+      decryption: output.join(''),
+      key: key,
+      date: date
+    }
   end
 end
