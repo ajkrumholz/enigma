@@ -11,6 +11,11 @@ RSpec.describe Encryptor do
       expect(encryptor).to be_a(described_class)
     end
 
+    it '#keygen' do
+      allow(encryptor).to receive(:keygen).and_return('12345')
+      expect(encryptor.keygen).to eq('12345')
+    end
+
     it '#encrypt' do
       expected = {
         encryption: 'keder ohulw',

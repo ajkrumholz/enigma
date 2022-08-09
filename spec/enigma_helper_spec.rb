@@ -8,13 +8,8 @@ RSpec.describe Cryptable do
   let(:key) { '02715' }
   let(:date) { '040895' }
 
-  context 'key creation' do
-    it '#keygen' do
-      allow(encryptor).to receive(:keygen).and_return('12345')
-      expect(encryptor.keygen).to eq('12345')
-    end
-
-    it '#dategen' do
+  context 'setup' do
+    it '#today_date' do
       expect(encryptor.today_date).to eq(Date.today.strftime('%d%m%y'))
     end
 
