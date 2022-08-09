@@ -3,8 +3,6 @@
 <h2>Functionality</h2>
 
 I was able to successfully implement CLI runner files for Encryption, Decryption, and Cracking functions.
-There is currently a bug in my Cracking function that throws an error if the ' character appears in the original message.
-All other characters are handled successfully.
 
 <h2>Object-Oriented Programming</h2>
 
