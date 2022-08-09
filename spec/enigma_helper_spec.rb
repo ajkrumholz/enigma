@@ -16,19 +16,19 @@ RSpec.describe Cryptable do
     end
 
     it '#key_hash' do
-      expect(enigma.key_hash(key)[:a]).to eq('02')
-      expect(enigma.key_hash(key)[:b]).to eq('27')
-      expect(enigma.key_hash(key)[:c]).to eq('71')
-      expect(enigma.key_hash(key)[:d]).to eq('15')
+      expect(enigma.key_array(key)[0]).to eq(2)
+      expect(enigma.key_array(key)[1]).to eq(27)
+      expect(enigma.key_array(key)[2]).to eq(71)
+      expect(enigma.key_array(key)[3]).to eq(15)
     end
   end
 
   context 'offset creation' do
     it '#offset_hash' do
-      expect(enigma.offset_hash(date)[:a]).to eq('1')
-      expect(enigma.offset_hash(date)[:b]).to eq('0')
-      expect(enigma.offset_hash(date)[:c]).to eq('2')
-      expect(enigma.offset_hash(date)[:d]).to eq('5')
+      expect(enigma.offset_array(date)[0]).to eq(1)
+      expect(enigma.offset_array(date)[1]).to eq(0)
+      expect(enigma.offset_array(date)[2]).to eq(2)
+      expect(enigma.offset_array(date)[3]).to eq(5)
     end
   end
 
