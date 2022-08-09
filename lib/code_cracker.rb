@@ -4,8 +4,11 @@
 require_relative 'decryptor'
 
 class CodeCracker < Decryptor
-  attr_reader :today_date,
-              :character_set
+
+  def initialize
+    @cipher = ' end'.split('')
+    super
+  end
 
   def crack(message, date = @today_date)
     message.downcase!
@@ -14,11 +17,10 @@ class CodeCracker < Decryptor
   end
 
   def decipher_key(message, date)
-    cipher = ' end'.split('')
     offsets = offset_array(date)
     ending = message[-4..].split('')
     rotated_offsets = offsets.rotate(message.length - 4)
-    final_possibilities = generate_final_possibilities(ending, cipher, rotated_offsets)
+    final_possibilities = generate_final_possibilities(ending, @cipher, rotated_offsets)
     sanitize(final_possibilities, rotated_offsets, offsets)
     final_keys = generate_final_keys(final_possibilities)
     key_array = generate_key_array(final_keys)
