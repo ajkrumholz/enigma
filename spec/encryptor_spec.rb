@@ -3,7 +3,6 @@
 require_relative 'spec_helper'
 
 RSpec.describe Encryptor do
-  let(:enigma) { Enigma.new }
   let(:encryptor) { described_class.new }
 
   context 'setup and basic testing' do
@@ -11,7 +10,16 @@ RSpec.describe Encryptor do
       expect(encryptor).to be_a(described_class)
     end
 
+    it '#today_date' do
+      expect(encryptor.today_date).to eq(Date.today.strftime('%d%m%y'))
+    end
+
+    it '#character_set' do
+      expect(encryptor.character_set).to eq(('a'..'z').to_a << ' ')
+    end
+
     it '#keygen' do
+      expect(encryptor.keygen).to be_a(String)
       allow(encryptor).to receive(:keygen).and_return('12345')
       expect(encryptor.keygen).to eq('12345')
     end
