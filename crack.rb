@@ -5,9 +5,8 @@ read_file = File.open(ARGV[0], 'r')
 
 encrypted_message = read_file.read
 read_file.close
-require 'pry'; binding.pry
 
-cracked = enigma.crack(encrypted_message.to_s)
+cracked = enigma.crack(encrypted_message)
 decryption = cracked[:decryption]
 
 write_file = File.open(ARGV[1], 'w')

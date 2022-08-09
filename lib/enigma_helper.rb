@@ -97,9 +97,9 @@ module Cryptable
 
   def generate_final_possibilities(ending, cipher, rotated_offsets)
     ending.map do |character|
+      ch_index = character_set.index(character)
       cipher_index = character_set.index(cipher[0])
-      new_set = character_set.rotate(-(27 - cipher_index))
-      total_shift = new_set.index(character)
+      total_shift = ch_index - cipher_index
       final_possible_keys = generate_possible_keys(total_shift, rotated_offsets)
       rotated_offsets.rotate!(1)
       cipher.rotate!(1)
