@@ -138,5 +138,16 @@ RSpec.describe Enigma do
       
       expect(enigma.crack(current_encrypt[:encryption])[:decryption]).to eq(expected[:decryption])
     end
+
+    it "#crack with today's date and a special characters" do
+      current_encrypt = enigma.encrypt("h0l@ worlds !!!*** end")
+      expected = {
+        decryption: "h0l@ worlds !!!*** end",
+        date: enigma.dategen,
+        key: current_encrypt[:key]
+      }
+
+      expect(enigma.crack(current_encrypt[:encryption])[:decryption]).to eq(expected[:decryption])
+    end
   end
 end

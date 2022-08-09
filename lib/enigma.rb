@@ -23,6 +23,7 @@ class Enigma
   end
 
   def crack(message, date = dategen)
+    message.downcase!
     key = decipher_key(message, date)
     decrypt(message, key, date)
   end

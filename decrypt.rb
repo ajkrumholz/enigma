@@ -1,7 +1,7 @@
 require_relative 'lib/enigma'
 
 enigma = Enigma.new
-require 'pry'; binding.pry
+
 read_file = File.open(ARGV[0], 'r')
 
 encrypted_message = read_file.read { |f| }
