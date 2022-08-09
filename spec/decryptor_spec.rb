@@ -39,7 +39,7 @@ RSpec.describe Decryptor do
         date: '040895'
       }
 
-      expect(decryptor.decrypt('kE!!deR Ohulw', '02715', '040895')).to eq(expected)
+      expect(decryptor.decrypt("ke!!olgtzojeg", '02715', '040895')).to eq(expected)
     end
   end
 end

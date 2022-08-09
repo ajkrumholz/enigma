@@ -30,6 +30,7 @@ class Decryptor
       final_offsets.rotate!
       new_character
     else
+      final_offsets.rotate!
       character
     end
   end

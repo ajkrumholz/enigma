@@ -12,6 +12,7 @@ class CodeCracker < Decryptor
   def crack(message, date = @today_date)
     message.downcase!
     key = decipher_key(message, date)
+    # key = alt_decipher(message, date) if message.length % 4 == 0
     decrypt(message, key, date)
   end
 
@@ -25,6 +26,15 @@ class CodeCracker < Decryptor
     key_array = generate_key_array(final_keys)
     return_deciphered_key(key_array)
   end
+  
+  # def alt_decipher(message, date)
+  #   rotated_offsets = offset_array(date)
+  #   ending = message[-4..].split('')
+  #   final_possibilities = generate_final_possibilities(ending, @cipher, rotated_offsets)
+  #   final_keys = generate_final_keys(final_possibilities)
+  #   key_array = generate_key_array(final_keys)
+  #   return_deciphered_key(key_array)
+  # end
 
   def sanitize(final_possibilities, rotated_offsets, offsets)
     final_possibilities.each { |array| array.delete_if { |num| num.negative? || num > 99 } }
