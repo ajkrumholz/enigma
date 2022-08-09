@@ -29,17 +29,17 @@ class CodeCracker < Decryptor
 
   def sanitize(final_possibilities, rotated_offsets, offsets)
     final_possibilities.each { |array| array.delete_if { |num| num.negative? || num > 99 } }
-    final_possibilities.rotate!(rotated_offsets.index(offsets[0]))
+    final_possibilities.rotate!(rotated_offsets.index(offsets.first))
   end
 
   def generate_final_possibilities(ending, cipher, rotated_offsets)
     ending.map do |character|
       ch_index = @character_set.index(character)
-      cipher_index = @character_set.index(cipher[0])
+      cipher_index = @character_set.index(cipher.first)
       total_shift = ch_index - cipher_index
       final_possible_keys = generate_possible_keys(total_shift, rotated_offsets)
-      rotated_offsets.rotate!(1)
-      cipher.rotate!(1)
+      rotated_offsets.rotate!
+      cipher.rotate!
       final_possible_keys
     end
   end
@@ -47,7 +47,7 @@ class CodeCracker < Decryptor
   def generate_possible_keys(total_shift, rotated_offsets)
     array = []
     5.times do |i|
-      array << total_shift - rotated_offsets[0] + (27 * i)
+      array << total_shift - rotated_offsets.first + (27 * i)
     end
     array
   end

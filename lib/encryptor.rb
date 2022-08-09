@@ -36,7 +36,7 @@ class Encryptor
     if @character_set.include?(character)
       ch_index = @character_set.index(character)
       new_character = encrypt_character(final_offsets, ch_index)
-      final_offsets.rotate!(1)
+      final_offsets.rotate!
       new_character
     else
       character
@@ -44,6 +44,6 @@ class Encryptor
   end
 
   def encrypt_character(final_offsets, ch_index)
-    @character_set.rotate(final_offsets[0])[ch_index]
+    @character_set.rotate(final_offsets.first)[ch_index]
   end
 end
