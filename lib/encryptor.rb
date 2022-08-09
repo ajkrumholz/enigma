@@ -24,14 +24,6 @@ class Encryptor
     encrypt_out(output, key, date)
   end
 
-  def encrypt_out(output, key, date)
-    {
-      encryption: output.join(''),
-      key: key,
-      date: date
-    }
-  end
-
   def build_encrypt_array(character, _output, final_offsets)
     if @character_set.include?(character)
       ch_index = @character_set.index(character)
@@ -42,8 +34,16 @@ class Encryptor
       character
     end
   end
-
+  
   def encrypt_character(final_offsets, ch_index)
     @character_set.rotate(final_offsets.first)[ch_index]
+  end
+
+  def encrypt_out(output, key, date)
+    {
+      encryption: output.join(''),
+      key: key,
+      date: date
+    }
   end
 end
