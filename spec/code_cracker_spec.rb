@@ -1,3 +1,5 @@
+# Tests for CodeCracker
+
 require_relative 'spec_helper'
 
 RSpec.describe CodeCracker do
@@ -55,7 +57,7 @@ RSpec.describe CodeCracker do
 
     expected = {
       decryption: 'hello world end',
-      date: Date.today.strftime("%d%m%y"),
+      date: Date.today.strftime('%d%m%y'),
       key: current_encrypt[:key]
     }
 
@@ -67,19 +69,19 @@ RSpec.describe CodeCracker do
 
     expected = {
       decryption: 'hola world end',
-      date: Date.today.strftime("%d%m%y"),
+      date: Date.today.strftime('%d%m%y'),
       key: current_encrypt[:key]
     }
-    
+
     expect(codecracker.crack(current_encrypt[:encryption])[:decryption]).to eq(expected[:decryption])
   end
 
   it "#crack with today's date and a special characters" do
-    current_encrypt = encryptor.encrypt("h0l@ worlds !!!*** end")
+    current_encrypt = encryptor.encrypt('h0l@ worlds !!!*** end')
 
     expected = {
-      decryption: "h0l@ worlds !!!*** end",
-      date: Date.today.strftime("%d%m%y"),
+      decryption: 'h0l@ worlds !!!*** end',
+      date: Date.today.strftime('%d%m%y'),
       key: current_encrypt[:key]
     }
 

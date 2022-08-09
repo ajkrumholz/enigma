@@ -1,3 +1,5 @@
+# A CLI runner for Encryptor
+
 require_relative 'lib/encryptor'
 
 encryptor = Encryptor.new

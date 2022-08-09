@@ -1,5 +1,6 @@
-module Cryptable
+# Cryptable contains basic methods used by both Encryptor and Decryptor
 
+module Cryptable
   def keygen
     (Array.new(5) { rand(0..9) }).join
   end
@@ -15,8 +16,8 @@ module Cryptable
 
   def offset_array(date)
     sq_date = date.to_i**2
-    sq_date_ary = sq_date.to_s[-4..].split("")
-    sq_date_ary.map { |num| num.to_i }
+    sq_date_ary = sq_date.to_s[-4..].split('')
+    sq_date_ary.map(&:to_i)
   end
 
   def generate_final_offsets(key, date)

@@ -1,3 +1,5 @@
+# Tests for Decryptor
+
 require_relative 'spec_helper'
 
 RSpec.describe Decryptor do

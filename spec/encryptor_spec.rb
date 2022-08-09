@@ -1,3 +1,5 @@
+# Tests for Encryptor
+
 require_relative 'spec_helper'
 
 RSpec.describe Encryptor do

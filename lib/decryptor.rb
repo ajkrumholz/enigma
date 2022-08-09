@@ -1,3 +1,6 @@
+# Decryptor is a machine built to decrypt messages using a date and key to determine
+# the original encryption pattern
+
 require_relative 'enigma_helper'
 require 'date'
 
@@ -6,7 +9,7 @@ class Decryptor
 
   attr_reader :today_date,
               :character_set
-              
+
   def initialize
     @today_date = Date.today.strftime('%d%m%y')
     @character_set = ('a'..'z').to_a << ' '

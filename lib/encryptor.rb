@@ -1,3 +1,6 @@
+# Encryptor is a machine built to encrypt messages using a provided date and provided or generated key.
+# If no date is given, today's date is used as the date of encryption.
+
 require_relative 'enigma_helper'
 require 'date'
 

@@ -1,3 +1,5 @@
+# Tests for Cryptable module
+
 require_relative 'spec_helper'
 
 RSpec.describe Cryptable do
@@ -8,8 +10,8 @@ RSpec.describe Cryptable do
 
   context 'key creation' do
     it '#keygen' do
-      allow(encryptor).to receive(:keygen).and_return("12345")
-      expect(encryptor.keygen).to eq("12345")
+      allow(encryptor).to receive(:keygen).and_return('12345')
+      expect(encryptor.keygen).to eq('12345')
     end
 
     it '#dategen' do

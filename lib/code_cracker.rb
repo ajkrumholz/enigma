@@ -1,13 +1,11 @@
+# CodeCracker is a specialized Decryptor that can crack any code that ends in ' end',
+# given the date the message was Encrypted
+
 require_relative 'decryptor'
 
 class CodeCracker < Decryptor
   attr_reader :today_date,
               :character_set
-              
-  def initialize
-    @today_date = Date.today.strftime('%d%m%y')
-    @character_set = ('a'..'z').to_a << ' '
-  end
 
   def crack(message, date = @today_date)
     message.downcase!
@@ -28,7 +26,7 @@ class CodeCracker < Decryptor
   end
 
   def sanitize(final_possibilities, rotated_offsets, offsets)
-    final_possibilities.each { |array| array.delete_if { |num| num < 0 || num > 99 } }
+    final_possibilities.each { |array| array.delete_if { |num| num.negative? || num > 99 } }
     final_possibilities.rotate!(rotated_offsets.index(offsets[0]))
   end
 
