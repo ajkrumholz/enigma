@@ -44,6 +44,6 @@ class Decryptor
   end
 
   def decrypt_character(final_offsets, ch_index)
-    @character_set.rotate(-(final_offsets.first))[ch_index]
+    @character_set.rotate(-final_offsets.first)[ch_index]
   end
 end
