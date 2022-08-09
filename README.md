@@ -28,6 +28,8 @@ SimpleCov results show 100% coverage on my code. All testing was written prior t
 
 Stubs were used to test the #keygen method, which allows the Encryptor class to generate a unique five-digit key when encrypting a message. Since the output was random, this was an excellent use-case for stubbing, as it would have otherwise been impossible to properly test.
 
+I used mocks when testing my crack method, in order to remove the need to include the functionality of the Encryptor class while testing cracking methods. This brought my testing flow more in line with convention, and probably also created some very small gains in terms of testing performance that would be more noticeable if we were testing with extremely long text files.
+
 <h2>Version Control</h2>
 
 I used pull requests and commits to track and document my progress at every step of this project, far exceeding the minimum requirements for number of requests and commits. I used branches extensively to work on new features without disrupting working code, and was careful to delete them once I'd finished with each new feature, in order to maintain organization and cleanliness.
