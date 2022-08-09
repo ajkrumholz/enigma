@@ -3,7 +3,7 @@
 require_relative 'lib/encryptor'
 
 encryptor = Encryptor.new
-
+require 'pry'; binding.pry
 read_file = File.open(ARGV[0], 'r')
 message = read_file.read { |f| }
 read_file.close

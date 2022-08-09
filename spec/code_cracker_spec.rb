@@ -92,8 +92,8 @@ RSpec.describe CodeCracker do
 
     it "#crack with today's date and a special characters" do
       expected_encrypt = {
-        :encryption=>"m0j@vytpgfxy!!!***vgsb", 
-        :key=>"81952", 
+        :encryption=>"j0b@boecnwil!!!***qqpw", 
+        :key=>"51362", 
         :date=>"090822"
       }
       
