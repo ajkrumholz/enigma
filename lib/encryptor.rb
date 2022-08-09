@@ -15,6 +15,10 @@ class Encryptor
     @character_set = ('a'..'z').to_a << ' '
   end
 
+  def keygen
+    (Array.new(5) { rand(0..9) }).join
+  end
+
   def encrypt(message, key = keygen, date = @today_date)
     final_offsets = generate_final_offsets(key, date)
     message = message.downcase.split('')
